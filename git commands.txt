@@ -1,0 +1,44 @@
+pipeline {
+       agent any
+             satge {
+                    stage('one'){
+                          step {
+                                echo 'hi;this is hari from ap'
+                            }
+                    }
+                    stage('two'){
+                              steps{
+                                   input (do you want to proceed?')
+                         }
+                       }
+                       stage('three'){
+                               when {
+                                  not {
+                                       branch "mater"
+                                      }
+                                  }
+                                  step {
+                                         echo "hello"
+                                    }
+                                 }
+                                 stage ('four'){
+                                                parallel {
+                                                     stage ('unit testing'){
+                                                                        step {
+                                                                             echo "running the unit test..."
+                                                           }
+                                                      }
+                                                      stage('integration test'){
+                                                                           agent {
+                                                                                docker{
+                                                                                     reusenode false
+                                                                                      image 'ubuntu'
+                                                                                }
+                                                                             }
+                                                                          step{
+                                                                               echo 'running the integration test..'
+                                                                       }
+}
+}
+}
+}
